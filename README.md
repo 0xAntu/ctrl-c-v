@@ -51,9 +51,6 @@ Your "Ctrl C+V" extension should now appear in your list of extensions and its i
     * Click the **"Delete"** button next to the snippet.
     * Confirm your action when prompted.
 
-## Project Structure
-![image](https://github.com/user-attachments/assets/be7b17cc-3809-4fc9-8d06-ad80d0d2cb6c)
-
 ## Credits
 
 Developed and Maintained by [0xAntu](https://www.linkedin.com/in/0xantu/)
