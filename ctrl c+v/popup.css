@@ -1,0 +1,158 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 350px; /* Adjusted width for table */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#newEntrySection {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+#newEntrySection label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#newEntrySection input[type="text"],
+#newEntrySection textarea {
+    width: calc(100% - 10px);
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#addNewBtn {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #28a745;
+}
+
+#addNewBtn:hover {
+    background-color: #218838;
+}
+
+/* --- Table specific styles --- */
+#snippetTable {
+    width: 100%;
+    border-collapse: collapse; /* Ensures borders are single lines */
+    margin-top: 15px;
+    table-layout: fixed; /* Ensures columns are fixed width */
+}
+
+#snippetTable th,
+#snippetTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top; /* Align content to top in cells */
+}
+
+#snippetTable th:first-child,
+#snippetTable td:first-child {
+    width: 50%; /* Allocate width for the title column */
+}
+
+#snippetTable th:last-child,
+#snippetTable td:last-child {
+    width: 50%; /* Allocate width for the actions column */
+}
+
+
+#snippetTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.snippet-title {
+    /* No cursor or underline here as it's not clickable for copy */
+    color: #333; /* Default text color */
+    word-break: break-word; /* Prevents long titles from overflowing */
+    font-weight: bold; /* Make titles stand out */
+}
+
+.snippet-actions button {
+    margin-bottom: 5px; /* Add some space between action buttons */
+    display: inline-block; /* Keep buttons in a row if space, otherwise wrap */
+}
+
+.snippet-actions .copy-btn {
+    background-color: #17a2b8; /* A nice blue for copy */
+    color: white;
+}
+.snippet-actions .copy-btn:hover {
+    background-color: #138496;
+}
+
+.snippet-actions .edit-btn {
+    background-color: #ffc107;
+    color: #333;
+}
+.snippet-actions .edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.snippet-actions .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+.snippet-actions .delete-btn:hover {
+    background-color: #c82333;
+}
+
+
+#noSnippetsMessage {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* --- Footer styles --- */
+#footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 0.8em;
+    color: #888;
+}
+
+#footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+}

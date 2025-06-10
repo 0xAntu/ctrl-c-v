@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Ctrl C+V",  
+  "version": "1.0",
+  "description": "Save and quickly copy text snippets.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "clipboardWrite"
+  ]
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ctrl C+V</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <h1>Ctrl C+V</h1>
+
+    <div id="newEntrySection" style="display: none;">
+        <input type="hidden" id="snippetId">
+        <label for="snippetTitle">Title:</label>
+        <input type="text" id="snippetTitle" placeholder="Enter title (e.g., 'Email Template')">
+        <label for="snippetText">Text:</label>
+        <textarea id="snippetText" rows="5" placeholder="Paste your text here..."></textarea>
+        <button id="saveSnippetBtn">Save Snippet</button>
+        <button id="cancelEditBtn">Cancel</button>
+    </div>
+
+    <button id="addNewBtn">Add New Snippet</button>
+
+    <div id="snippetListContainer">
+        <p id="noSnippetsMessage">No snippets saved yet. Click 'Add New Snippet' to start!</p>
+        <table id="snippetTable" style="width:100%; border-collapse: collapse; display: none;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+    </div>
+
+    <div id="footer">
+        <p>Copyright by <a href="https://www.linkedin.com/in/0xantu/" target="_blank">0xAntu</a></p>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
