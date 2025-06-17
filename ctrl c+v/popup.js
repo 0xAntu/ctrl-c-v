@@ -13,6 +13,11 @@ const snippetTable = document.getElementById('snippetTable');
 const snippetTableBody = snippetTable.querySelector('tbody');
 const noSnippetsMessage = document.getElementById('noSnippetsMessage');
 
+// New elements for import/export
+const importSavesBtn = document.getElementById('importSavesBtn');
+const csvFileInput = document.getElementById('csvFileInput');
+const exportAllBtn = document.getElementById('exportAllBtn');
+
 
 // --- Event Listeners ---
 
@@ -35,6 +40,14 @@ cancelEditBtn.addEventListener('click', () => {
 });
 
 saveSnippetBtn.addEventListener('click', saveSnippet);
+
+importSavesBtn.addEventListener('click', () => {
+    csvFileInput.click(); // Programmatically click the hidden file input
+});
+
+csvFileInput.addEventListener('change', importSaves); // Listen for file selection
+
+exportAllBtn.addEventListener('click', exportAll);
 
 // --- Functions ---
 
@@ -182,6 +195,107 @@ function deleteSnippet(event) {
         });
     }
 }
+
+// --- New Import/Export Functions ---
+
+function importSaves(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        return; // No file selected
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const csvContent = e.target.result;
+        parseCSVAndImport(csvContent);
+    };
+    reader.readAsText(file);
+    // Clear the file input value so that the same file can be selected again
+    event.target.value = '';
+}
+
+function parseCSVAndImport(csvContent) {
+    const lines = csvContent.split(/\r?\n/).filter(line => line.trim() !== ''); // Split by line, remove empty
+    if (lines.length === 0) {
+        alert('No valid data found in the CSV file.');
+        return;
+    }
+
+    let newSnippets = {};
+    const headerSkipped = false; // Set to true if your CSV has a header row like "Title,Text"
+
+    lines.forEach((line, index) => {
+        if (headerSkipped && index === 0) return; // Skip header row if present
+
+        // Simple CSV parsing: split by comma. Assumes no commas within title/text
+        // For more robust parsing, consider a dedicated CSV library
+        const parts = line.split(',');
+
+        if (parts.length >= 2) { // Expecting at least Title and Text
+            const title = parts[0].trim();
+            const text = parts.slice(1).join(',').trim(); // Join remaining parts for text
+
+            if (title && text) { // Ensure both title and text are non-empty
+                const id = Date.now().toString() + '-' + index; // Unique ID for imported snippets
+                newSnippets[id] = { title: title, text: text };
+            }
+        }
+    });
+
+    if (Object.keys(newSnippets).length === 0) {
+        alert('Could not parse any valid snippets from the CSV file. Please ensure it is in "Title,Text" format.');
+        return;
+    }
+
+    chrome.storage.local.get(['snippets'], function(result) {
+        const existingSnippets = result.snippets || {};
+        // Merge new snippets with existing ones. New IDs prevent overwriting.
+        const mergedSnippets = { ...existingSnippets, ...newSnippets };
+
+        chrome.storage.local.set({ snippets: mergedSnippets }, function() {
+            alert(`Successfully imported ${Object.keys(newSnippets).length} snippet(s)!`);
+            loadSnippets(); // Reload the list to display imported snippets
+        });
+    });
+}
+
+
+function exportAll() {
+    chrome.storage.local.get(['snippets'], function(result) {
+        const snippets = result.snippets || {};
+        const snippetKeys = Object.keys(snippets).sort((a, b) => {
+            return snippets[a].title.localeCompare(snippets[b].title);
+        });
+
+        if (snippetKeys.length === 0) {
+            alert('No snippets to export!');
+            return;
+        }
+
+        let csvContent = 'Title,Text\n'; // CSV Header
+        snippetKeys.forEach(id => {
+            const snippet = snippets[id];
+            // Escape double quotes in title and text, then wrap in double quotes
+            const escapedTitle = `"${snippet.title.replace(/"/g, '""')}"`;
+            const escapedText = `"${snippet.text.replace(/"/g, '""')}"`;
+            csvContent += `${escapedTitle},${escapedText}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const filename = `CtrlCV_Snippets_Export_${new Date().toISOString().slice(0, 10)}.csv`;
+
+        // Create a temporary link element and click it to trigger download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a); // Append to body is good practice
+        a.click();
+        document.body.removeChild(a); // Clean up
+        URL.revokeObjectURL(url); // Release the URL object
+    });
+}
+
 
 // Helper to prevent XSS (Cross-Site Scripting) when displaying titles
 function escapeHTML(str) {
