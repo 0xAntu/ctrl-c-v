@@ -10,6 +10,7 @@
 * **Edit Functionality**: Modify existing snippets (both title and text) whenever needed.
 * **Delete Functionality**: Remove unwanted snippets effortlessly.
 * **Clean Table View**: Snippets are displayed in an organized table format for easy readability and management.
+* **Import/Export Data**: Easily import new snippets from a CSV file or export all your existing snippets to a CSV file for backup or transfer.
 * **User-Friendly Interface**: Simple and intuitive design for a smooth experience.
 
 ## Installation
@@ -40,6 +41,7 @@ Your "Ctrl C+V" extension should now appear in your list of extensions and its i
     * Enter a descriptive **"Title"** for your snippet.
     * Paste or type your desired **"Text"** into the text area.
     * Click **"Save Snippet"**.
+    * (Note: When adding or editing, the snippet list will hide to give you more focus on the input fields.)
 3.  **Copy a Snippet**:
     * Simply click the **"Copy"** button next to the snippet you wish to copy.
     * The text will be automatically placed in your clipboard, ready to paste (`Ctrl+V` or `Cmd+V`).
@@ -50,6 +52,13 @@ Your "Ctrl C+V" extension should now appear in your list of extensions and its i
 5.  **Delete a Snippet**:
     * Click the **"Delete"** button next to the snippet.
     * Confirm your action when prompted.
+6.  **Import/Export Saves**:
+    * **Export All**: Click the **"Export All"** button in the footer. Your entire collection of saved snippets will be downloaded as a CSV file named `CtrlCV_Snippets_Export_YYYY-MM-DD.csv`.
+    * **Import Saves**: Click the **"Import Saves"** button in the footer. Select a CSV file from your computer. The extension will add new snippets from the file.
+        * **CSV Format**: The CSV file should have a simple format: `Title,Text`. Each line represents one snippet.
+        * **Example CSV Row**: `My Email Signature,"Regards,\nJohn Doe"`
+        * **Important**: If your text contains commas (`,`) or double quotes (`"`), make sure the text field is enclosed in double quotes (e.g., `"This is a long text, with commas, inside."`). If the text itself contains double quotes, escape them by using two double quotes (e.g., `"He said ""Hello!"" to me."`).
+
 
 ## Credits
 
