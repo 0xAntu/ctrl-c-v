@@ -36,11 +36,12 @@ h1 {
     box-sizing: border-box;
 }
 
+/* Base button style - most buttons inherit this unless overridden */
 button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 12px; /* Standard button size */
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9em;
@@ -95,7 +96,6 @@ button:hover {
 }
 
 .snippet-title {
-    /* No cursor or underline here as it's not clickable for copy */
     color: #333; /* Default text color */
     word-break: break-word; /* Prevents long titles from overflowing */
     font-weight: bold; /* Make titles stand out */
@@ -103,7 +103,10 @@ button:hover {
 
 .snippet-actions button {
     margin-bottom: 5px; /* Add some space between action buttons */
-    display: inline-block; /* Keep buttons in a row if space, otherwise wrap */
+    /* Action buttons are typically smaller, so they inherit from 'button'
+       but then override. We want import/export to be like 'button' base. */
+    padding: 5px 8px; /* Making action buttons slightly smaller */
+    font-size: 0.8em;
 }
 
 .snippet-actions .copy-btn {
@@ -155,4 +158,24 @@ button:hover {
 
 #footer a:hover {
     text-decoration: underline;
+}
+
+.footer-actions {
+    margin-bottom: 10px; /* Space between buttons and copyright text */
+    display: flex; /* Use flexbox for button layout */
+    justify-content: center; /* Center the buttons */
+    gap: 10px; /* Space between buttons */
+}
+
+#importSavesBtn, #exportAllBtn {
+    /* Make them inherit from the base 'button' for size, and then override color */
+    background-color: #9370DB; /* MediumPurple - a velvet-like shade */
+    color: white; /* Ensure text is white for contrast */
+    /* Padding and font-size inherited from base button to make them "bigger" */
+    /* padding: 8px 12px; */ /* Already set by base button */
+    /* font-size: 0.9em; */ /* Already set by base button */
+}
+
+#importSavesBtn:hover, #exportAllBtn:hover {
+    background-color: #8A2BE2; /* BlueViolet for hover - slightly darker/different purple */
 }
